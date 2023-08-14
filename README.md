@@ -23,6 +23,7 @@ where `target_device` is the device you want to flash.
 
 On first boot the root partition will automatically extend to the entire drive, so expect to wait a bit.
 DHCP, sshd, and serial console are enabled. The default user and password are both `nixos`.
+The GPU does not work yet, so there will be no HDMI output.
 
 The image is configured for 4GB of RAM. If you have 8GB, follow the instructions
 [here](https://github.com/NixOS/nixos-hardware/tree/master/pine64/star64#8gb-memory).
