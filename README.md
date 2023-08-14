@@ -30,5 +30,5 @@ The image is configured for 4GB of RAM. If you have 8GB, follow the instructions
 
 ## License
 
-The code, like [https://github.com/NixOS/nixos-hardware] from which it's taken, is released under CC0-1.0.
+The code, like [nixos-hardware](https://github.com/NixOS/nixos-hardware) from which it's taken, is released under CC0-1.0.
 Licenses of the composing packages apply to the prebuilt images.
