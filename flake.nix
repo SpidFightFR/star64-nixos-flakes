@@ -25,6 +25,8 @@
 
               system.stateVersion = "23.05";
               networking.useDHCP = true;
+              networking.wireless.enable = true;
+              networking.wireless.userControlled.enable = true;
               services.openssh.enable = true;
 
               users.users.nixos = {
