@@ -18,7 +18,7 @@
         default = sd-image;
         sd-image = (import "${nixpkgs}/nixos" {
           configuration =
-            { config, ... }: {
+            { config, pkgs, ... }: {
               imports = [
                 "${nixos-hardware}/pine64/star64/sd-image.nix"
               ];
@@ -33,6 +33,12 @@
               };
               security.sudo.wheelNeedsPassword = false;
               users.users.nixos.initialPassword = "nixos";
+
+              environment.systemPackages = with pkgs; [
+                git
+                htop
+                tmux
+              ];
             };
           inherit system;
         }).config.system.build.sdImage;
