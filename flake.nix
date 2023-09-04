@@ -87,6 +87,13 @@
           system = null; # Modular system/platform
           configuration = nixosConfigurations.star64;
         }).config.system.build.sdImage;
+        sd-image-cross = (import "${nixpkgs}/nixos" {
+          system = null; # Modular system/platform
+          configuration = {
+            nixpkgs.buildPlatform = system;
+            imports = [ nixosConfigurations.star64 ];
+          };
+        }).config.system.build.sdImage;
       });
     };
 }
