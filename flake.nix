@@ -17,6 +17,7 @@
       packages = forAllSupportedSystems (system: rec {
         default = sd-image;
         sd-image = (import "${nixpkgs}/nixos" {
+          system = null; # Modular system/platform
           configuration =
             { config, pkgs, modulesPath, ... }: {
               imports = [
@@ -27,6 +28,9 @@
               ];
 
               system.stateVersion = "23.05";
+
+              nixpkgs.hostPlatform = "riscv64-linux";
+
               networking.useDHCP = true;
               networking.wireless.enable = true;
               networking.wireless.userControlled.enable = true;
@@ -80,7 +84,6 @@
                 zlib
               ];
             };
-          inherit system;
         }).config.system.build.sdImage;
       });
     };
