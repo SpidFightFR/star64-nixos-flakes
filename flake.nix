@@ -27,6 +27,12 @@
 
           nixpkgs.hostPlatform = "riscv64-linux";
 
+          # Uncomment on the 8GB model
+          #hardware.deviceTree.overlays = [{
+          #  name = "8GB-patch";
+          #  dtsFile = "${nixos-hardware}/pine64/star64/star64-8GB.dts";
+          #}];
+
           networking.useDHCP = true;
           networking.wireless.enable = true;
           networking.wireless.userControlled.enable = true;
