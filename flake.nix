@@ -21,14 +21,21 @@
           dtsFile = "${nixos-hardware}/pine64/star64/star64-8GB.dts";
         }];
       };
+      # Copies ./configuration.nix to /etc/nixos
+      nixosModules.copyConfiguration = {
+        sdImage.populateRootCommands = ''
+          mkdir -p ./files/etc/nixos
+          cp ${./configuration.nix} ./files/etc/nixos/configuration.nix
+        '';
+      };
 
       nixosConfigurations.star64 = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit nixos-hardware; };
-        modules = [ nixosModules.star64 ];
+        modules = [ nixosModules.star64 nixosModules.copyConfiguration ];
       };
       nixosConfigurations.star64-8gb = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit nixos-hardware; };
-        modules = [ nixosModules.star64 nixosModules."8gb-patch" ];
+        modules = [ nixosModules.star64 nixosModules.copyConfiguration nixosModules."8gb-patch" ];
       };
 
       packages = forAllSupportedSystems (system: rec {
@@ -39,6 +46,7 @@
           specialArgs = { inherit nixos-hardware; };
           modules = [
             nixosModules.star64
+            nixosModules.copyConfiguration
             { nixpkgs.buildPlatform = system; }
           ];
         }).config.system.build.sdImage;
@@ -46,6 +54,7 @@
           specialArgs = { inherit nixos-hardware; };
           modules = [
             nixosModules.star64
+            nixosModules.copyConfiguration
             { nixpkgs.buildPlatform = system; }
             nixosModules."8gb-patch"
           ];
