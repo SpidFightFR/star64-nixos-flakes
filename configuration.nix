@@ -58,6 +58,7 @@
     elfutils
     flex
     gcc
+    gitMinimal
     glibc
     glibcLocales
     jq
