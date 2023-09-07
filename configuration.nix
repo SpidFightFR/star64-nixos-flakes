@@ -69,6 +69,14 @@
     python3
     rustc
     stdenv
+    # Bootstrap stages. Yes, this is the right way to do it.
+    stdenv.__bootPackages.stdenv
+    stdenv.__bootPackages.stdenv.__bootPackages.stdenv
+    stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv
+    stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv
+    stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv
+    stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv
+    stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv
     stdenv.cc
     stdenvNoCC
     unzip
