@@ -1,9 +1,14 @@
 { config
 , pkgs
 , modulesPath
-, nixos-hardware ? builtins.fetchgit { url = "https://github.com/nixos/nixos-hardware"; }
 , ...
-}:
+}@attrs:
+
+# If used without a flake we can't declare nixos-hardware in the inputs
+# or the configuration will fail to evaulate.
+let nixos-hardware = attrs.nixos-hardware or
+      (builtins.fetchgit { url = "https://github.com/nixos/nixos-hardware"; });
+in
 
 {
   imports = [
