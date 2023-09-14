@@ -74,6 +74,7 @@ in
       llvm
       meson
       ninja
+      openssl
       pkg-config
       python3
       rustc
@@ -87,6 +88,12 @@ in
       stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv
       stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv
       stdenv.cc
+      stdenv.__bootPackages.stdenv.cc
+      stdenv.__bootPackages.stdenv.__bootPackages.stdenv.cc
+      stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.cc
+      stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.cc
+      stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.cc
+      stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.cc
       stdenvNoCC
       unzip
       util-linux
