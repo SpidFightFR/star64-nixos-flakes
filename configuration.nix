@@ -47,6 +47,7 @@ in
 
   # Provide a bunch of build dependencies to minimize rebuilds.
   # Alternatively, sdImage.storePaths will not tie the packages to the system, allowing GC.
+  # system.includeBuildDependencies is another alternative, but results in a WAY bigger image.
   system.extraDependencies = with pkgs;
     # Include only in native builds.
     # Use normalized platforms from stdenv.
