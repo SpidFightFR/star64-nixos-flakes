@@ -7,7 +7,7 @@
 # If used without a flake we can't declare nixos-hardware in the inputs
 # or the configuration will fail to evaulate.
 let nixos-hardware = attrs.nixos-hardware or
-      (builtins.fetchgit { url = "https://github.com/nixos/nixos-hardware"; });
+      (builtins.fetchGit { url = "https://github.com/nixos/nixos-hardware"; });
 in
 
 {
@@ -16,6 +16,7 @@ in
     # Set the nixos channel to the nixpkgs the image was built with,
     # to minimize rebuilds.
     "${modulesPath}/installer/cd-dvd/channel.nix"
+    #./nix-cfgs/builder.nix
   ];
 
   system.stateVersion = "23.05";
@@ -23,10 +24,10 @@ in
   nixpkgs.hostPlatform = "riscv64-linux";
 
   # Uncomment on the 8GB model
-  #hardware.deviceTree.overlays = [{
-  #  name = "8GB-patch";
-  #  dtsFile = "${nixos-hardware}/pine64/star64/star64-8GB.dts";
-  #}];
+  hardware.deviceTree.overlays = [{
+    name = "8GB-patch";
+    dtsFile = "${nixos-hardware}/pine64/star64/star64-8GB.dts";
+  }];
 
   networking.useDHCP = true;
   networking.wireless.enable = true;
@@ -37,12 +38,19 @@ in
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
+
+#   users.users.<user> = {
+#     isNormalUser = true;
+#     extraGroups = [ "wheel" ];
+#   };
   security.sudo.wheelNeedsPassword = false;
   users.users.nixos.initialPassword = "nixos";
   environment.systemPackages = with pkgs; [
     git
     htop
     tmux
+    vim
+    #neovim
   ];
 
   # Provide a bunch of build dependencies to minimize rebuilds.
