@@ -74,7 +74,6 @@ in
       elfutils
       flex
       gcc
-      gitMinimal
       glibc
       glibcLocales
       jq
@@ -128,6 +127,7 @@ in
                 ./home-cfgs/home-mgr.nix
                 ./home-cfgs/user-pkgs.nix
                 ./home-cfgs/nvim.nix
+                ./home-cfgs/git.com
             ];
         };
     };
