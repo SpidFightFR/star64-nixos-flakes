@@ -1,0 +1,23 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+#useful aliases
+alias ls='ls --color'
+alias ip='ip -c'
+alias grep='grep --color'
+alias ping='ping -c5'
+alias reboot='sudo reboot'
+alias poweroff='sudo poweroff'
+alias back='cd; clear; ff'
+
+alias monip='curl https://ifconfig.me ; echo'
+
+alias ytmp3='yt-dlp -x --audio-format mp3'
+alias ytmp4='yt-dlp --remux-video mp4'
+
+PS1="\[\e[32m\][\[\e[m\]\[\e[31m\]\u\[\e[m\]\[\e[33m\]\[\e[m\]\[\e[32m\]\\[\e[m\]:\[\e[36m\]\w\[\e[m\]\[\e[32m\]]\[\e[m\]\[\e[32m\] $\[\e[m\] "
+ff

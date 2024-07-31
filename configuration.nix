@@ -19,9 +19,11 @@ in
     #./nix-cfgs/builder.nix
   ];
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "24.05";
 
   nixpkgs.hostPlatform = "riscv64-linux";
+
+  time.timeZone = "Europe/Paris";
 
   # Uncomment on the 8GB model
   hardware.deviceTree.overlays = [{
@@ -45,13 +47,7 @@ in
 #   };
   security.sudo.wheelNeedsPassword = false;
   users.users.nixos.initialPassword = "nixos";
-  environment.systemPackages = with pkgs; [
-    git
-    htop
-    tmux
-    vim
-    #neovim
-  ];
+
 
   # Provide a bunch of build dependencies to minimize rebuilds.
   # Alternatively, sdImage.storePaths will not tie the packages to the system, allowing GC.
@@ -61,6 +57,8 @@ in
     # Use normalized platforms from stdenv.
     lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform)
     (builtins.concatMap (x: x.all) [
+      home-manager
+
       autoconf
       automake
       bash
@@ -109,4 +107,28 @@ in
       zip
       zlib
     ]);
+
+
+
+### HOME MANAGER PART
+    # Configure home-manager
+    home-manager = {
+        backupFileExtension = "hm-bak";
+        useGlobalPkgs = true;
+
+        config =
+            { config, lib, pkgs, ... }:
+            {
+            # Read the changelog before changing this value
+            home.stateVersion = "24.05";
+
+            # insert home-manager config
+            imports = [
+                ./home-cfgs/bash.nix
+                ./home-cfgs/home-mgr.nix
+                ./home-cfgs/user-pkgs.nix
+                ./home-cfgs/nvim.nix
+            ];
+        };
+    };
 }
