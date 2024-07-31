@@ -59,17 +59,17 @@ in
     (builtins.concatMap (x: x.all) [
       home-manager
 
+      #I use toybox instead of busybox, as it provides a tinier set of tools than busybox
+      toybox
+
       autoconf
       automake
-      bash
       binutils
       bison
-      busybox
       cargo
       clang
       cmake
       config.boot.kernelPackages.kernel
-      curl
       dtc
       elfutils
       flex
