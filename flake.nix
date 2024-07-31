@@ -1,9 +1,20 @@
 {
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-  inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
+  inputs = {
+    nixpkgs = {
+        url = "github:nixos/nixpkgs/nixos-24.05";
+        inputs.home-manager.follows = "home-manager";
 
+    };
 
-  outputs = { self, nixpkgs, nixos-hardware, ... }:
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    home-manager = {
+        url = "github:nix-community/home-manager/release-24.05";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, ... }:
     let
       supportedSystems = [
         "x86_64-linux"
