@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-    programs.gitMinimal = {
+    programs.git = {
         enable = true;
         userName = "<username>";
         userEmail = "<email>";

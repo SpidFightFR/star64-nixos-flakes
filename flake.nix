@@ -2,8 +2,7 @@
   inputs = {
     nixpkgs = {
         url = "github:nixos/nixpkgs/nixos-24.05";
-        inputs.home-manager.follows = "home-manager";
-
+        # inputs.home-manager.follows = "home-manager";
     };
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -14,7 +13,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, ... }:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, ... }@inputs:
     let
       supportedSystems = [
         "x86_64-linux"
@@ -41,11 +40,11 @@
       };
 
       nixosConfigurations.star64 = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit nixos-hardware; };
+        specialArgs = { inherit inputs; };
         modules = [ nixosModules.star64 nixosModules.copyConfiguration ];
       };
       nixosConfigurations.star64-8gb = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit nixos-hardware; };
+        specialArgs = { inherit inputs; };
         modules = [ nixosModules.star64 nixosModules.copyConfiguration nixosModules."8gb-patch" ];
       };
 
@@ -54,7 +53,7 @@
         sd-image = nixosConfigurations.star64.config.system.build.sdImage;
         sd-image-8gb = nixosConfigurations.star64-8gb.config.system.build.sdImage;
         sd-image-cross = (nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit nixos-hardware; };
+          specialArgs = { inherit inputs; };
           modules = [
             nixosModules.star64
             nixosModules.copyConfiguration
@@ -62,7 +61,7 @@
           ];
         }).config.system.build.sdImage;
         sd-image-cross-8gb = (nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit nixos-hardware; };
+          specialArgs = { inherit inputs; };
           modules = [
             nixosModules.star64
             nixosModules.copyConfiguration
