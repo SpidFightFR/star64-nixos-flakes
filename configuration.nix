@@ -1,13 +1,16 @@
 { config
 , pkgs
 , modulesPath
+, inputs
 , ...
-}@attrs:
+}:
 
 # If used without a flake we can't declare nixos-hardware in the inputs
 # or the configuration will fail to evaulate.
-let nixos-hardware = attrs.nixos-hardware or
-      (builtins.fetchGit { url = "https://github.com/nixos/nixos-hardware"; });
+let 
+  # nixos-hardware = attrs.nixos-hardware or
+  #     (builtins.fetchGit { url = "https://github.com/nixos/nixos-hardware"; });
+  nixos-hardware = inputs.nixos-hardware;
 in
 
 {
@@ -17,6 +20,7 @@ in
     # to minimize rebuilds.
     "${modulesPath}/installer/cd-dvd/channel.nix"
     #./nix-cfgs/builder.nix
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   system.stateVersion = "24.05";
@@ -115,8 +119,8 @@ in
         backupFileExtension = "hm-bak";
         useGlobalPkgs = true;
 
-        config =
-            { config, lib, pkgs, ... }:
+        users.nixos =
+            { config, lib, pkgs, inputs, ... }:
             {
             # Read the changelog before changing this value
             home.stateVersion = "24.05";
@@ -124,10 +128,10 @@ in
             # insert home-manager config
             imports = [
                 ./home-cfgs/bash.nix
-                ./home-cfgs/home-mgr.nix
+                # ./home-cfgs/home-mgr.nix
                 ./home-cfgs/user-pkgs.nix
                 ./home-cfgs/nvim.nix
-                ./home-cfgs/git.com
+                ./home-cfgs/git.nix
             ];
         };
     };
