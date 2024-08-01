@@ -1,9 +1,4 @@
-{ config
-, pkgs
-, modulesPath
-, inputs
-, ...
-}:
+{ config, pkgs, modulesPath, inputs, ... }:
 
 # If used without a flake we can't declare nixos-hardware in the inputs
 # or the configuration will fail to evaulate.
