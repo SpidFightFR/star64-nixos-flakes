@@ -1,9 +1,24 @@
 {
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-  inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
+  inputs = {
+    nixpkgs = {
+        url = "github:nixos/nixpkgs/nixos-24.05";
+    };
 
+    nixpkgs-unstable = {
+            url = "github:nixos/nixpkgs/nixos-unstable";
+        };
 
-  outputs = { self, nixpkgs, nixos-hardware, ... }:
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    nixos-hardware-patched.url = "github:humaidq/nixos-hardware";
+
+    home-manager = {
+        url = "github:nix-community/home-manager/release-24.05";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, nixos-hardware-patched, ... }@inputs:
     let
       supportedSystems = [
         "x86_64-linux"
@@ -30,11 +45,11 @@
       };
 
       nixosConfigurations.star64 = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit nixos-hardware; };
+        specialArgs = { inherit inputs; };
         modules = [ nixosModules.star64 nixosModules.copyConfiguration ];
       };
       nixosConfigurations.star64-8gb = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit nixos-hardware; };
+        specialArgs = { inherit inputs; };
         modules = [ nixosModules.star64 nixosModules.copyConfiguration nixosModules."8gb-patch" ];
       };
 
@@ -43,7 +58,7 @@
         sd-image = nixosConfigurations.star64.config.system.build.sdImage;
         sd-image-8gb = nixosConfigurations.star64-8gb.config.system.build.sdImage;
         sd-image-cross = (nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit nixos-hardware; };
+          specialArgs = { inherit inputs; };
           modules = [
             nixosModules.star64
             nixosModules.copyConfiguration
@@ -51,7 +66,7 @@
           ];
         }).config.system.build.sdImage;
         sd-image-cross-8gb = (nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit nixos-hardware; };
+          specialArgs = { inherit inputs; };
           modules = [
             nixosModules.star64
             nixosModules.copyConfiguration

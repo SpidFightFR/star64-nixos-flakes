@@ -1,0 +1,9 @@
+#
+# ~/.bashrc
+#
+#Put your bashrc config here
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+PS1="\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\$\[\033[0m\]"
